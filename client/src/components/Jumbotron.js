@@ -5,7 +5,7 @@ const styles = {
         marginTop: "20px",
         marginLeft: "30px",
         marginRight: "30px",
-        backgroundColor: "grey",
+        backgroundColor: "#888888",
         textAlign: "center"
     }
 }
