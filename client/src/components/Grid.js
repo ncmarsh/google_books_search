@@ -1,7 +1,7 @@
 import React from "react";
 
 // Container
-export function Container ({ children }) {
+export function Container ({ fluid, children }) {
     return (
         <div className={`container${fluid ? "-fluid" : ""}`}>
             {children}
