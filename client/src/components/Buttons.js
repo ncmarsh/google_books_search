@@ -1,24 +1,14 @@
 import React from "react";
 
-export function ViewBtn(props) {
-    return (
-        <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-success">
-            {props.children}
-        </button>
-    )
-};
+const styles = {
+    button: {
+        float: "right",
+        marginRight: "5px"    }
+}
 
-export function SaveBtn(props) {
+export function BookButton(props) {
     return (
-        <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-success">
-            {props.children}
-        </button>
-    )
-};
-
-export function DeleteBtn(props) {
-    return (
-        <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-success">
+        <button {...props} style={styles.button} className="btn btn-success">
             {props.children}
         </button>
     )
