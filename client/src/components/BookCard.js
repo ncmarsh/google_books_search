@@ -1,4 +1,5 @@
 import React from "react";
+import { BookButton } from "./Buttons";
 
 const styles = {
     bookCard:{
@@ -14,22 +15,34 @@ const styles = {
     },
     text: {
         display: "inline-block"
+    },
+    link: {
+        color: "#ffffff",
+        textDecoration: "none"
     }
 }
 
 function BookCard(props) {
     return (
         <div className="card" style={styles.bookCard}>
-            <h3>
-                <a href={props.link}>
+            <div style={styles.text}>
+                <div>
+                    <BookButton onClick={props.onClick}>Save</BookButton>
+                    <BookButton>
+                        <a href={props.link} target="_blank" rel="noopener noreferrer" style={styles.link}>
+                            View
+                        </a>
+                    </BookButton>
+                </div>
+                <h3>
                     {props.title}
-                </a> 
-            </h3>
-            <h4>{props.subtitle}</h4>
-            <h5>Written by: {props.author}</h5>
+                </h3>
+                <h4>{props.subtitle}</h4>
+                <h5>Written by: {props.author}</h5>
+            </div>
             <hr />
             <div style={styles.text}>
-                <img src={props.image} alt="Cover Image" className="img-fluid" style={styles.image} />
+                <img src={props.image} alt="Book Cover" className="img-fluid" style={styles.image} />
                 <p>{props.description}</p>
             </div>
         </div>
