@@ -92,22 +92,20 @@ function Search() {
                         {books.length ? (
                             <List>
                                 <ListItem>
-                                    <Card>
-                                        {books.map(book => (
-                                            <BookCard 
-                                                key={book.id} 
-                                                link={book.volumeInfo.previewLink}
-                                                title={book.volumeInfo.title}
-                                                subtitle={book.volumeInfo.subtitle}
-                                                author={book.volumeInfo.authors}
-                                                image={book.volumeInfo.imageLinks.smallThumbnail}
-                                                description={book.volumeInfo.description}
-                                            >
-                                                <SaveBtn>Save</SaveBtn>
-                                                <ViewBtn>View</ViewBtn>
-                                            </BookCard>
-                                        ))}
-                                    </Card>
+                                    {books.map(book => (
+                                        <BookCard 
+                                            key={book.id} 
+                                            link={book.volumeInfo.previewLink}
+                                            title={book.volumeInfo.title}
+                                            subtitle={book.volumeInfo.subtitle}
+                                            author={book.volumeInfo.authors.join(", ")}
+                                            image={book.volumeInfo.imageLinks.smallThumbnail}
+                                            description={book.volumeInfo.description}
+                                        >
+                                            <SaveBtn>Save</SaveBtn>
+                                            <ViewBtn>View</ViewBtn>
+                                        </BookCard>
+                                    ))}
                                 </ListItem>
                             </List>
                         ) : (
