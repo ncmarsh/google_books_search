@@ -8,7 +8,7 @@ const styles = {
 
 export function BookButton(props) {
     return (
-        <button {...props} style={styles.button} className="btn btn-success">
+        <button {...props} style={styles.button}>
             {props.children}
         </button>
     )
