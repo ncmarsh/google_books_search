@@ -27,8 +27,10 @@ function BookCard(props) {
         <div className="card" style={styles.bookCard}>
             <div style={styles.text}>
                 <div>
-                    <BookButton onClick={props.onClick}>Save</BookButton>
-                    <BookButton>
+                    <BookButton className="btn btn-success" onClick={props.onClick}>
+                        Save
+                    </BookButton>
+                    <BookButton className="btn btn-primary">
                         <a href={props.link} target="_blank" rel="noopener noreferrer" style={styles.link}>
                             View
                         </a>
