@@ -5,7 +5,7 @@ const styles = {
         marginTop: "20px",
         marginLeft: "30px",
         marginRight: "30px",
-        backgroundColor: "#888888",
+        backgroundColor: "#E67031",
         textAlign: "center"
     }
 }
@@ -15,7 +15,7 @@ function Jumbotron() {
         <div className="jumbotron" style={styles.jumbotron}>
             <h1 className="display-4">(React) Google Books Search</h1>
             <hr className="my-4" />
-            <p>Search for and Save Books of Interest</p>
+            <p>Search and Save Books of Interest</p>
         </div>
     )
 }
