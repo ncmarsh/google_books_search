@@ -5,7 +5,6 @@ import { Container, Row, Col } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
-import { SaveBtn, ViewBtn } from "../components/Buttons";
 import BookCard from "../components/BookCard";
 
 function Search() {
@@ -14,16 +13,7 @@ function Search() {
 
     // useEffect(() => {
         // loadBooks(),
-        // googleBooksSearch()
     // }, []);
-
-    // function googleBooksSearch() {
-    //     API.googleBooksSearch()
-    //         .then(res =>
-    //             setBooks(res.data)
-    //         )
-    //         .catch(err => console.log(err));
-    // };
 
     // function loadBooks() {
     //     API.getBooks()
@@ -40,31 +30,41 @@ function Search() {
     //         .catch(err => console.log(err));
     // };
 
+    // Search form input
     function handleInputChange(e) {
         const { name, value } = e.target;
         setFormObject({...formObject, [name]: value})
     };
 
+    // Search form button
     function handleFormSubmit(e) {
         e.preventDefault();
 
         if (formObject.title) {
-            let query = formObject.title;
-            API.googleBooksSearch(query)
-            .then(res =>
-                // console.log(res.data.items)
-                setBooks(res.data.items)
-            )
+            API.googleBooksSearch(formObject.title)
+            .then(res => {
+                console.log(res.data.items)
+                let searchResults = res.data.items.map((book) => ({
+                    _id: book.id,
+                    link: book.volumeInfo.infoLink,
+                    title: book.volumeInfo.title,
+                    subtitle: book.volumeInfo.subtitle,
+                    author: book.volumeInfo.authors.join(", "),
+                    image: book.volumeInfo.imageLinks.smallThumbnail,
+                    description: book.volumeInfo.description
+                }));
+                setBooks(searchResults);
+            })
+                // setFormObject(title: "")
             .catch(err => console.log(err));
         }
-        // if (formObject.title) {
-        //     console.log(e.target.value);
-        //     API.saveBook({
-        //         title: formObject.title
-        //     })
-        //     .then(res => loadBooks())
-        //     .catch(err => console.log(err));
-        // }
+    };
+
+    function saveBook(book) {
+        console.log(book);
+        API.saveBook(book)
+        .then(res => console.log("saved"))
+        .catch(err => console.log(err));
     };
 
     return (
@@ -80,7 +80,6 @@ function Search() {
                                 placeholder="Book Title"
                             />
                             <FormBtn
-                                // disabled={!formObject.title}
                                 onClick={handleFormSubmit}
                             >
                                 Search
@@ -94,16 +93,10 @@ function Search() {
                                 <ListItem>
                                     {books.map(book => (
                                         <BookCard 
-                                            key={book.id} 
-                                            link={book.volumeInfo.previewLink}
-                                            title={book.volumeInfo.title}
-                                            subtitle={book.volumeInfo.subtitle}
-                                            author={book.volumeInfo.authors.join(", ")}
-                                            image={book.volumeInfo.imageLinks.smallThumbnail}
-                                            description={book.volumeInfo.description}
+                                            key={book._id} 
+                                            {...book} 
+                                            onClick={() => saveBook(book)}
                                         >
-                                            <SaveBtn>Save</SaveBtn>
-                                            <ViewBtn>View</ViewBtn>
                                         </BookCard>
                                     ))}
                                 </ListItem>
