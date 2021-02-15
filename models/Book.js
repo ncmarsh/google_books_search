@@ -2,17 +2,20 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
+  link: String,
   title: { 
     type: String, 
     required: true 
   },
-  authors: { 
+  subtitle: {
+    type: String
+  },
+  author: { 
     type: String, 
     required: true 
   },
-  description: String,
   image: String,
-  link: String
+  description: String
 });
 
 const Book = mongoose.model("Book", bookSchema);
