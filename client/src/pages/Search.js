@@ -54,17 +54,20 @@ function Search() {
                     description: book.volumeInfo.description
                 }));
                 setBooks(searchResults);
+                // setFormObject({});
             })
-                // setFormObject(title: "")
             .catch(err => console.log(err));
         }
     };
 
-    function saveBook(book) {
-        console.log(book);
-        API.saveBook(book)
+    function saveBook(savedBook) {
+        console.log(savedBook);
+        API.saveBook(savedBook)
         .then(res => console.log("saved"))
         .catch(err => console.log(err));
+
+        let newList = books.filter(book => book._id !== savedBook._id);
+        setBooks(newList);
     };
 
     return (
@@ -78,6 +81,7 @@ function Search() {
                                 onChange={handleInputChange}
                                 name="title"
                                 placeholder="Book Title"
+                                // value={formObject.title}
                             />
                             <FormBtn
                                 onClick={handleFormSubmit}
