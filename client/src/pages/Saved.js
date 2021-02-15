@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import API from "../utils/API";
 import { Container, Row, Col } from "../components/Grid";
 import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import BookCard from "../components/BookCard";
 
 function Saved() {
-    const [books, setBooks] = useState([]);
+    const [savedBooks, setSavedBooks] = useState([]);
+
+    useEffect(() => {
+        loadBooks()
+    }, []);
+
+    function loadBooks() {
+        API.getBooks()
+            .then(res => {
+                console.log(res.data);
+                setSavedBooks(res.data);
+            })
+            .catch(err => console.log(err));
+    };
+
+    // function deleteBook(id) {
+    //     API.deleteBook(id)
+    //         .then(res => loadBooks())
+    //         .catch(err => console.log(err));
+    // };
 
     return (
         <Container>
@@ -13,18 +33,13 @@ function Saved() {
                 <Col size="md-12">
                     <Card>
                         <h2>Saved Books:</h2>
-                        {books.length ? (
+                        {savedBooks.length ? (
                             <List>
                                 <ListItem>
-                                    {books.map(book => (
+                                    {savedBooks.map(book => (
                                         <BookCard 
-                                            key={book.id} 
-                                            link={book.volumeInfo.previewLink}
-                                            title={book.volumeInfo.title}
-                                            subtitle={book.volumeInfo.subtitle}
-                                            author={book.volumeInfo.authors.join(", ")}
-                                            image={book.volumeInfo.imageLinks.smallThumbnail}
-                                            description={book.volumeInfo.description}
+                                            key={book._id}
+                                            {...book}
                                         >
                                         </BookCard>
                                     ))}
