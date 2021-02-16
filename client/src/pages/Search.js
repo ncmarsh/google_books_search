@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import API from "../utils/API";
 import { Container, Row, Col } from "../components/Grid";
-import { Input, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import BookCard from "../components/BookCard";
@@ -49,9 +47,9 @@ function Search() {
                     link: book.volumeInfo.infoLink,
                     title: book.volumeInfo.title,
                     subtitle: book.volumeInfo.subtitle,
-                    author: book.volumeInfo.authors.join(", "),
-                    image: book.volumeInfo.imageLinks.smallThumbnail,
-                    description: book.volumeInfo.description
+                    author: book.volumeInfo.authors?.join(", ") || "Not available",
+                    image: book.volumeInfo.imageLinks?.smallThumbnail || book.volumeInfo.imageLinks?.thumbnail,
+                    description: book.volumeInfo.description || "No description available."
                 }));
                 setBooks(searchResults);
                 // setFormObject({});
@@ -77,17 +75,22 @@ function Search() {
                     <Card>
                         <form>
                             <h2>Book Search:</h2>
-                            <Input 
-                                onChange={handleInputChange}
-                                name="title"
-                                placeholder="Book Title"
-                                // value={formObject.title}
-                            />
-                            <FormBtn
-                                onClick={handleFormSubmit}
-                            >
-                                Search
-                            </FormBtn>
+                            <div className="form-group">
+                                <input 
+                                    className="form-control"
+                                    onChange={handleInputChange}
+                                    name="title"
+                                    placeholder="Book Title"
+                                    // value={formObject.title}
+                                />
+                                <button
+                                    onClick={handleFormSubmit}
+                                    style={{ float: "right", marginBottom: 10 }}
+                                    className="btn btn-dark"
+                                >
+                                    Search
+                                </button>
+                            </div>
                         </form>
                     </Card>
                     <Card>
@@ -99,7 +102,8 @@ function Search() {
                                         <BookCard 
                                             key={book._id} 
                                             {...book} 
-                                            onClick={() => saveBook(book)}
+                                            saveOnClick={() => saveBook(book)}
+                                            onSearchPage={true}
                                         >
                                         </BookCard>
                                     ))}
