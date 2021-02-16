@@ -22,14 +22,28 @@ const styles = {
     }
 }
 
+function Button(props) {
+    const onSearchPage = props.onSearchPage;
+    if (onSearchPage) {
+        return (
+            <BookButton className="btn btn-success" onClick={props.saveOnClick}>
+                Save
+            </BookButton>
+        );
+    }
+    return (
+        <BookButton className="btn btn-danger" onClick={props.deleteOnClick}>
+            Delete
+        </BookButton>
+    )
+}
+
 function BookCard(props) {
     return (
         <div className="card" style={styles.bookCard}>
             <div style={styles.text}>
                 <div>
-                    <BookButton className="btn btn-success" onClick={props.onClick}>
-                        Save
-                    </BookButton>
+                    <Button onSearchPage={props.onSearchPage} {...props} />
                     <BookButton className="btn btn-primary">
                         <a href={props.link} target="_blank" rel="noopener noreferrer" style={styles.link}>
                             View
