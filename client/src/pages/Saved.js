@@ -21,11 +21,13 @@ function Saved() {
             .catch(err => console.log(err));
     };
 
-    // function deleteBook(id) {
-    //     API.deleteBook(id)
-    //         .then(res => loadBooks())
-    //         .catch(err => console.log(err));
-    // };
+    function deleteBook(id) {
+        let removeBook = savedBooks.filter((book) => book._id === id);
+        console.log(removeBook);
+        API.deleteBook(removeBook[0])
+            // .then(res => loadBooks())
+            .catch(err => console.log(err));
+    };
 
     return (
         <Container>
@@ -40,6 +42,8 @@ function Saved() {
                                         <BookCard 
                                             key={book._id}
                                             {...book}
+                                            deleteOnClick={() => deleteBook(book)}
+                                            onSearchPage={false}
                                         >
                                         </BookCard>
                                     ))}
