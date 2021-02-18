@@ -21,11 +21,9 @@ function Saved() {
             .catch(err => console.log(err));
     };
 
-    function deleteBook(id) {
-        let removeBook = savedBooks.filter((book) => book._id === id);
-        console.log(removeBook);
-        API.deleteBook(removeBook[0])
-            // .then(res => loadBooks())
+    function deleteBook(book) {
+        API.deleteBook(book._id)
+            .then(res => loadBooks())
             .catch(err => console.log(err));
     };
 
