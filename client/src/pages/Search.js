@@ -7,26 +7,9 @@ import BookCard from "../components/BookCard";
 
 function Search() {
     const [books, setBooks] = useState([]);
-    const [formObject, setFormObject] = useState({});
-
-    // useEffect(() => {
-        // loadBooks(),
-    // }, []);
-
-    // function loadBooks() {
-    //     API.getBooks()
-    //         .then(res =>
-    //             console.log(res.data)
-    //             // setBooks(res.data)
-    //         )
-    //         .catch(err => console.log(err));
-    // };
-
-    // function deleteBook(id) {
-    //     API.deleteBook(id)
-    //         .then(res => loadBooks())
-    //         .catch(err => console.log(err));
-    // };
+    const [formObject, setFormObject] = useState({
+        title: ""
+    });
 
     // Search form input
     function handleInputChange(e) {
@@ -60,6 +43,7 @@ function Search() {
 
     function saveBook(savedBook) {
         console.log(savedBook);
+        if (savedBook)
         API.saveBook(savedBook)
         .then(res => console.log("saved"))
         .catch(err => console.log(err));
@@ -80,8 +64,9 @@ function Search() {
                                     className="form-control"
                                     onChange={handleInputChange}
                                     name="title"
+                                    type="text"
                                     placeholder="Book Title"
-                                    // value={formObject.title}
+                                    value={formObject.title}
                                 />
                                 <button
                                     onClick={handleFormSubmit}
