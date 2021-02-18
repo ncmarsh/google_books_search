@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+const Navbar = () => {
+    const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+    const handleNavCollapse = () => {
+        setIsNavCollapsed(!isNavCollapsed);
+    }
+
     return (
         <nav className="fixed-top sticky-top">
-            <ul className="navbar fixed-top sticky-top navbar-expand-lg navbar-light bg-light">
+            <ul className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="/">
                     Google Books
                 </a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <button 
+                    className="navbar-toggler" type="button" 
+                    data-toggle="collapse" data-target="#navbarNavAltMarkup" 
+                    aria-controls="navbarNavAltMarkup" aria-expanded={!isNavCollapsed ? true : false} 
+                    aria-label="Toggle navigation" onClick={handleNavCollapse}
+                >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`} id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <li className="nav-item">
                             <Link to="/search" className="nav-link">
